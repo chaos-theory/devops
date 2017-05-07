@@ -1,0 +1,36 @@
+---
+- name: Install Docker.
+  apt: pkg=docker-engine state=installed
+  tags:
+    - docker_install
+
+- name: Install dependencies for the Ansible module.
+  pip: name={{ item }} state=present executable=pip
+  with_items:
+    - docker-py
+    - docker-compose
+  tags:
+    - docker_install
+
+- name: Avoid using sudo.
+  command: sudo usermod -aG docker {{ item }}
+  with_items:
+    - ubuntu
+  tags:
+    - docker_install
+
+- name: Create docker configuration directory.
+  file: path="/{{ item }}/.docker" state=directory
+  with_items:
+    - root
+  tags:
+    - docker_install
+
+# TODO replace this by using the 'docker_login' module.
+- name: Install docker configuration file.
+  copy: src=config.json
+        dest="/{{ item }}/.docker/config.json"
+  with_items:
+    - root
+  tags:
+    - docker_install

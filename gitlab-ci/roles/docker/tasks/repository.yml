@@ -1,0 +1,10 @@
+---
+- name: Add docker repository key.
+  apt_key: data="{{ lookup('file', '2C52609D.asc') }}" state=present
+  tags:
+    - docker_install
+
+- name: Add Docker repository.
+  apt_repository: repo='{{ docker.repo }}' state=present
+  tags:
+    - docker_install

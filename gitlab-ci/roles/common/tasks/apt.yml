@@ -1,0 +1,31 @@
+---
+- name: Update apt cache.
+  apt: update_cache=yes cache_valid_time=5400
+  tags:
+    - apt
+
+- name: Ensure installed vim.
+  apt:
+    pkg=vim
+    state=present
+    update_cache=no
+  tags:
+    - vim
+
+- name: Set filetype indent off.
+  lineinfile:
+    dest=/etc/vim/vimrc
+    line='filetype indent off'
+    state=present
+  tags:
+    - vim
+
+- name: Ensure pip is installed.
+  apt:
+    pkg=python-pip
+    state=present
+
+- name: Ensure virtualenv is installed.
+  apt:
+    pkg=virtualenv
+    state=present

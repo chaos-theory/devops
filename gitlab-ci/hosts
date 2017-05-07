@@ -1,10 +1,13 @@
 ---
 [dbservers]
-db.local
+db.local ansible_python_interpreter=/usr/bin/python3
 
 [appservers]
-app1.local
-app2.local
+app1.local ansible_python_interpreter=/usr/bin/python3
+app2.local ansible_python_interpreter=/usr/bin/python3
 
 [proxies]
-proxy.local
+proxy.local ansible_python_interpreter=/usr/bin/python3
+
+[gitlab-runners]
+app1.local ansible_python_interpreter=/usr/bin/python3

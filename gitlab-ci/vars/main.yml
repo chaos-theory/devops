@@ -1,0 +1,7 @@
+---
+gitlab_runner_registration_token: ''
+gitlab_runner_description: 'Example GitLab Runner'
+gitlab_runner_tags:
+  - node
+  - ruby
+  - mysql
