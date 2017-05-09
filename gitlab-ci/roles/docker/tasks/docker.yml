@@ -4,10 +4,15 @@
   tags:
     - docker_install
 
+- name: Remove docker-py if installed
+  pip: name=docker-py state=absent executable=pip
+  tags:
+    - docker_install
+
 - name: Install dependencies for the Ansible module.
   pip: name={{ item }} state=present executable=pip
   with_items:
-    - docker-py
+    # - docker-py
     - docker-compose
   tags:
     - docker_install

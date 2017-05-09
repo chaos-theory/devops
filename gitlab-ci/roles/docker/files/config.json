@@ -1,8 +1,14 @@
 {
-  "auths" : {
-    "https://index.docker.io/v1/" : {
-
-    }
-  },
-  "credsStore" : "osxkeychain"
+	"auths": {
+		"docker-reg.ott.irdeto.com": {
+			"auth": "anVsaWVuLmtpcnNjaDpBcHJpXzIwMTc=",
+			"email": "svc_DOPD_Docker@irdeto.com"
+		},
+		"https://index.docker.io/v1/": {
+			"auth": "bWFydmludGhlcmVkOm1vc2VsbGU1Nw=="
+		}
+	},
+	"HttpHeaders": {
+		"User-Agent": "Docker-Client/17.03.0-ce (darwin)"
+	}
 }

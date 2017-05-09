@@ -1,0 +1,67 @@
+---
+- name: Add GitLab apt key
+  apt_key:
+    url: https://packages.gitlab.com/runner/gitlab-ci-multi-runner/gpgkey
+    state: present
+  tags:
+    - gitlab_runner_install
+
+- name: Install GitLab Runner dependencies
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - debian-archive-keyring
+    - apt-transport-https
+  tags:
+    - gitlab_runner_install
+
+- name: Add GitLab Runner apt repo
+  apt_repository:
+    repo: 'deb https://packages.gitlab.com/runner/gitlab-ci-multi-runner/ubuntu xenial main'
+    state: present
+  tags:
+    - gitlab_runner_install
+
+- name: Install GitLab Runner
+  apt:
+    name: gitlab-ci-multi-runner=1.11.2
+    # state: latest
+    update_cache: yes
+  tags:
+    - gitlab_runner_install
+
+- name: Pull the gitlab runner docker image
+  docker_image:
+    name: marvinthered/gitlab-ci-multi-runner
+    tag: latest
+  tags:
+    - gitlab_runner_install
+
+- name: Create gitlab-runner certs directory
+  file: path=/etc/gitlab-runner/certs
+        state=directory
+  tags:
+    - gitlab_runner_install
+
+- name: Upload gitlab self signed certs
+  copy: src=gitlab.infra.opd.crt
+        dest=/etc/gitlab-runner/certs/gitlab.infra.opd.crt
+  tags:
+    - gitlab_runner_install
+
+- name: Ensure local certs directory exists
+  file: state=directory path=/usr/local/share/ca-certificates
+  tags:
+    - gitlab_runner_install
+
+- name: Install gitlab cert
+  copy: src=gitlab.infra.opd.crt
+        dest=/usr/local/share/ca-certificates/gitlab.infra.opd.crt
+  tags:
+    - gitlab_runner_install
+
+- name: Update cert index
+  shell: /usr/sbin/update-ca-certificates
+  tags:
+    - gitlab_runner_install

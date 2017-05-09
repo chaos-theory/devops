@@ -7,15 +7,23 @@ Install Python setuptools: https://pypi.python.org/pypi/setuptools#installation-
 
 If you prefer not to install packages to your global `site-packages` you can install and use virtualenv: http://virtualenv.readthedocs.org/en/latest/
 
-```sudo easy_install pip```
+``` shell
+sudo easy_install pip
+```
 
-```sudo pip install paramiko PyYAML jinja2 passlib```
+``` shell
+sudo pip install paramiko PyYAML jinja2 passlib
+```
 
-```sudo pip install ansible```
+``` shell
+sudo pip install ansible
+```
 
 Then, if you're going to update ansible later, just do:
 
-```sudo pip install ansible --upgrade```
+``` shell
+sudo pip install ansible --upgrade
+```
 
 Other:
 ------
@@ -31,15 +39,19 @@ http://docs.vagrantup.com/v2/installation/
 
 Install [vagrant-cachier plugin](https://github.com/fgrehm/vagrant-cachier) to speed up apt with a shared cache between boxes:
 
-```vagrant plugin install vagrant-cachier```
+``` shell
+vagrant plugin install vagrant-cachier
+```
 
 Install [vagrant-hostmanager plugin](https://github.com/smdahlen/vagrant-hostmanager) to manage the /etc/hosts file on guest machines and the host:
 
-```vagrant plugin install vagrant-hostmanager```
+``` shell
+vagrant plugin install vagrant-hostmanager
+```
 
 Clone this repo, and start the virtual machines:
 
-```
+``` shell
 git clone https://github.com/steinim/devopscon-zero-downtime-ansible.git
 cd devopscon-zero-downtime-ansible
 vagrant up
@@ -47,4 +59,6 @@ vagrant up
 
 Provision with Ansible
 =======================
-```ansible-playbook site.yml```
+``` shell
+ansible-playbook site.yml
+```

@@ -3,9 +3,38 @@
   command: gitlab-runner list
   register: configured_runners
   changed_when: False
+  tags:
+    - gitlab_runner_register
 
-- name: Register runner to GitLab
-  command: gitlab-runner register >
+# - name: Register runner to GitLab
+#   command: gitlab-runner register >
+#     --non-interactive
+#     --url '{{ gitlab_runner_coordinator_url }}'
+#     --registration-token '{{ gitlab_runner_registration_token }}'
+#     --description '{{ gitlab_runner_description }}'
+#     --tag-list '{{ gitlab_runner_tags | join(",") }}'
+#     --executor '{{ gitlab_runner_executor }}'
+#     --docker-image '{{ gitlab_runner_docker_image }}'
+#     --tls-ca-file /etc/gitlab-runner/certs/gitlab.infra.opd.crt
+#   when: configured_runners.stderr.find('\n{{ gitlab_runner_description }}') == -1
+#   tags:
+#     - gitlab_runner_register
+
+- name: Start gitlab-runner
+  docker_container:
+    detach: True
+    name: gitlab-runner
+    restart_policy: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+    image: marvinthered/gitlab-ci-multi-runner:latest
+  tags:
+    - gitlab_runner_register
+
+- name: Register the runner
+  command: >
+    docker exec -i gitlab-runner gitlab-ci-multi-runner register
     --non-interactive
     --url '{{ gitlab_runner_coordinator_url }}'
     --registration-token '{{ gitlab_runner_registration_token }}'
@@ -13,4 +42,5 @@
     --tag-list '{{ gitlab_runner_tags | join(",") }}'
     --executor '{{ gitlab_runner_executor }}'
     --docker-image '{{ gitlab_runner_docker_image }}'
-  when: configured_runners.stderr.find('\n{{ gitlab_runner_description }}') == -1
+  tags:
+    - gitlab_runner_register

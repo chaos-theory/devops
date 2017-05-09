@@ -1,0 +1,24 @@
+concurrent = 2
+check_interval = 0
+
+[[runners]]
+  name = "Generic CI Runner"
+  url = "https://gitlab.infra.opd"
+  token = "{{ gitlab_runner_token }}"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "docker:latest"
+    privileged = true
+    disable_cache = false
+    volumes = ["/cache","/root/.docker/:/root/.docker/"]
+  [runners.cache]
+    Type = "s3"
+    ServerAddress = "s3.amazonaws.com"
+    AccessKey = "AKIAIXVHVJLWKI7CC4PA"
+    SecretKey = "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"
+    BucketName = "opd-gitlab-ci-runner-cache"
+    BucketLocation = "us-west-2"
+    Insecure = false
+    Path = "runner/cache"
+    Shared = true

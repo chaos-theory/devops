@@ -1,7 +1,8 @@
 ---
-gitlab_runner_registration_token: ''
+gitlab_runner_registration_token: 'D_df8myyNv3yWz7CYMr7'
 gitlab_runner_description: 'Example GitLab Runner'
-gitlab_runner_tags:
-  - node
-  - ruby
-  - mysql
+# gitlab_runner_docker_image: 'docker:latest'
+# gitlab_runner_tags:
+#   - node
+#   - ruby
+#   - mysql

@@ -1,0 +1,16 @@
+---
+- name: Load overlay module
+  modprobe:
+    name: overlay
+    state: present
+  tags:
+    - system
+
+- name: Save the module config for next reboot
+  lineinfile:
+    path: /etc/modules
+    regexp: '^overlay$'
+    line: 'overlay'
+    state: present
+  tags:
+    - system

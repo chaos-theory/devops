@@ -24,8 +24,20 @@
   apt:
     pkg=python-pip
     state=present
+  tags:
+    - python
+
+- name: Upgrade pip to the latest version
+  pip:
+    name: pip
+    extra_args: --upgrade
+    executable: pip
+  tags:
+    - python
 
 - name: Ensure virtualenv is installed.
   apt:
     pkg=virtualenv
     state=present
+  tags:
+    - python

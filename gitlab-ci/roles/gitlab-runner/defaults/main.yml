@@ -15,7 +15,7 @@ gitlab_runner_description: '{{ ansible_hostname }}'
 gitlab_runner_executor: 'docker'
 
 # Default docker image.
-gitlab_runner_docker_image: ''
+gitlab_runner_docker_image: 'docker:latest'
 
 # Runner tags.
 gitlab_runner_tags: []
